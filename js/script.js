@@ -145,11 +145,14 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   // get info from user options function
-  let { passLength, userPassCriteria } = getPasswordOptions();
+  let passwordOptions = getPasswordOptions();
 
-  if (!userPassCriteria) {
+  if (!passwordOptions) {
     return ""; // for when there is an invalid user input
   }
+
+  let { passLength, userPassCriteria } = passwordOptions;
+
   //generate ransom password by random selection from the selected character types
   let generatedPass = "";
   for (let i = 0; i < passLength; i++) {
