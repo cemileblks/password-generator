@@ -92,7 +92,7 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   let passLength = prompt("How many characters would you like your password to contain? (Please enter a number between 8-128)");
 
-  passLength = parseInt(passLength);
+  passLength = parseInt(passLength); // convert to interger
 
   if (passLength < 8) {
     alert("Password length must be at least 8 characters!");
@@ -106,19 +106,19 @@ function getPasswordOptions() {
     alert("Password length must be provided as a number!");
     return null;
   }
-
+  // check what characters user wants to include
   let includeSpecialCharacters = confirm("Click OK to confirm including special characters.");
   let includeNumericCharacters = confirm("Click OK to confirm including numeric characters.");
   let includeUppercaseCharacters = confirm("Click OK to confirm including UPPERCASE characters.");
   let includeLowercaseCharacters = confirm("Click OK to confirm including lowercase characters.");
-
+  // check at least one was selected by the user
   if (!(includeSpecialCharacters || includeNumericCharacters || includeUppercaseCharacters || includeLowercaseCharacters)) {
     alert("At least one character type should be selected");
     return null;
   }
-
+  // to store selected character types
   let userPassCriteria = [];
-
+  // concatenate the arrays based on user selection
   if (includeSpecialCharacters) {
     userPassCriteria = userPassCriteria.concat(specialCharacters);
   }
@@ -131,7 +131,7 @@ function getPasswordOptions() {
   if (includeLowercaseCharacters) {
     userPassCriteria = userPassCriteria.concat(lowerCasedCharacters);
   }
-
+  // returns object to store the password length and the selected characters
   return { passLength, userPassCriteria };
 }
 
@@ -144,15 +144,14 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-
+  // get info from user options function
   let { passLength, userPassCriteria } = getPasswordOptions();
 
   if (!userPassCriteria) {
-    return ""; // Handle null or invalid user input
+    return ""; // for when there is an invalid user input
   }
-
+  //generate ransom password by random selection from the selected character types
   let generatedPass = "";
-
   for (let i = 0; i < passLength; i++) {
     generatedPass += getRandom(userPassCriteria);
   }
