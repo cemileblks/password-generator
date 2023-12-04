@@ -90,15 +90,49 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-//   let passLength = prompt("How many characters would you like your password to contain?");
-//   if (passLength < 8) {
-//     alert("Password length must be at least 8 characters!");
-//   } 
-//   else if (passLength > 128) {
-//     alert("Password length must be less than 129 characters");
-//   } else {
-//     console.log("valid");
-//   }
+  let passLength = prompt("How many characters would you like your password to contain? (Please enter a number between 8-128)");
+
+  passLength = parseInt(passLength);
+
+  if (passLength < 8) {
+    alert("Password length must be at least 8 characters!");
+    return null;
+  }
+  else if (passLength > 128) {
+    alert("Password length must be less than 129 characters");
+    return null;
+  }
+  else if (isNaN(passLength)) {
+    alert("Password length must be provided as a number!");
+    return null;
+  }
+
+  let includeSpecialCharacters = confirm("Click OK to confirm including special characters.");
+  let includeNumericCharacters = confirm("Click OK to confirm including numeric characters.");
+  let includeUppercaseCharacters = confirm("Click OK to confirm including UPPERCASE characters.");
+  let includeLowercaseCharacters = confirm("Click OK to confirm including lowercase characters.");
+
+  if (!(includeSpecialCharacters || includeNumericCharacters || includeUppercaseCharacters || includeLowercaseCharacters)) {
+    alert("At least one character type should be selected");
+    return null;
+  }
+
+  let userPassCriteria = [];
+
+  if (includeSpecialCharacters) {
+    userPassCriteria = userPassCriteria.concat(specialCharacters);
+  }
+  if (includeNumericCharacters) {
+    userPassCriteria = userPassCriteria.concat(numericCharacters);
+  }
+  if (includeUppercaseCharacters) {
+    userPassCriteria = userPassCriteria.concat(upperCasedCharacters);
+  }
+  if (includeLowercaseCharacters) {
+    userPassCriteria = userPassCriteria.concat(lowerCasedCharacters);
+  }
+
+  return { passLength, userPassCriteria };
 }
 
 // Function for getting a random element from an array
@@ -107,10 +141,23 @@ function getRandom(arr) {
   let randomElement = arr[randomIndex];
   return randomElement;
 }
-console.log(getRandom(upperCasedCharacters));
+
 // Function to generate password with user input
 function generatePassword() {
 
+  let { passLength, userPassCriteria } = getPasswordOptions();
+
+  if (!userPassCriteria) {
+    return ""; // Handle null or invalid user input
+  }
+
+  let generatedPass = "";
+
+  for (let i = 0; i < passLength; i++) {
+    generatedPass += getRandom(userPassCriteria);
+  }
+
+  return generatedPass;
 }
 
 // Get references to the #generate element
