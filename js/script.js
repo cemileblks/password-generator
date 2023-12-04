@@ -90,14 +90,24 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-
+//   let passLength = prompt("How many characters would you like your password to contain?");
+//   if (passLength < 8) {
+//     alert("Password length must be at least 8 characters!");
+//   } 
+//   else if (passLength > 128) {
+//     alert("Password length must be less than 129 characters");
+//   } else {
+//     console.log("valid");
+//   }
 }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
+  let randomIndex = Math.floor(Math.random() * arr.length);
+  let randomElement = arr[randomIndex];
+  return randomElement;
 }
-
+console.log(getRandom(upperCasedCharacters));
 // Function to generate password with user input
 function generatePassword() {
 
