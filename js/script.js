@@ -92,6 +92,10 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   let passLength = prompt("How many characters would you like your password to contain? (Please enter a number between 8-128)");
 
+  if (passLength === null) {
+    return null; // if user cancels the prompt
+  }
+
   passLength = parseInt(passLength); // convert to interger
 
   if (passLength < 8) {
@@ -106,6 +110,7 @@ function getPasswordOptions() {
     alert("Password length must be provided as a number!");
     return null;
   }
+  
   // check what characters user wants to include
   let includeSpecialCharacters = confirm("Click OK to confirm including special characters.");
   let includeNumericCharacters = confirm("Click OK to confirm including numeric characters.");
